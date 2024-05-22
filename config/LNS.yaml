@@ -1,0 +1,55 @@
+# LNS.yaml
+defaults:
+  - _self_
+
+hydra:
+  job:
+    chdir: true
+  run:
+    dir: ../runs/testLNS/${run.problem}/${run.difficulty}/${run.method}/${now:%Y-%m-%d}-${now:%H-%M-%S}
+  job_logging:
+    root:
+      handlers: [console, file]
+    handlers:
+      console:
+        class: logging.StreamHandler
+        level: INFO
+        formatter: simple
+        stream: ext://sys.stdout
+      file:
+        class: logging.FileHandler
+        level: DEBUG
+        formatter: simple
+        filename: main.log
+
+run:
+  seed: 42
+  problem: qis
+  difficulty: medium
+  method: lns
+  time_limit: 10
+  n_solutions: 1
+  overwrite: false
+
+gurobi:
+  nthread: 4
+  gap_limit: null
+  obj_limit: null
+
+scip:
+  gap_limit: null
+
+lns:
+  solver: scip
+  encoding: HG
+  ntimes: 1
+  nprocesses: 4
+  block_size: 0.5
+  obj_limit: null
+  time_limit:
+    cross_time_limit: 30
+    search_time_limit: 120
+  policies:
+    crossover: false  # True or False
+    neighborhood_policy: "random"  # "random" or "constr_random"
+    repair_policy: "cautious"  # "quick" or "cautious"

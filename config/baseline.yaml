@@ -1,0 +1,39 @@
+# baseline.yaml
+
+defaults:
+  - _self_
+
+hydra:
+  job:
+    chdir: true
+  run:
+    dir: ../runs/main/${run.problem}-${run.difficulty}/${run.solver}/${now:%Y-%m-%d}-${now:%H-%M-%S}
+  job_logging:
+    root:
+      handlers: [console, file]
+    handlers:
+      console:
+        class: logging.StreamHandler
+        level: INFO
+        formatter: simple
+        stream: ext://sys.stdout
+      file:
+        class: logging.FileHandler
+        level: DEBUG
+        formatter: simple
+        filename: main.log
+
+run:
+  solver: gurobi  # gurobi or scip
+  problem: qis  # qis or qkp
+  difficulty: medium
+  time_limit: 10
+  gap_limit: null
+  n_instances: 10
+
+gurobi:
+  nthread: 4
+  obj_limit: null
+
+scip:
+  obj_limit: null

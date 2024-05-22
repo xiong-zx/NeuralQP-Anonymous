@@ -1,0 +1,52 @@
+# NP.yaml
+# Test Neural Prediction
+defaults:
+  - _self_
+
+hydra:
+  job:
+    chdir: true
+  run:
+    dir: ../runs/testNP/${run.train.problem}-${run.train.difficulty}/${run.test.problem}-${run.test.difficulty}/${now:%Y-%m-%d}-${now:%H-%M-%S}
+  job_logging:
+    root:
+      handlers: [console, file]
+    handlers:
+      console:
+        class: logging.StreamHandler
+        level: INFO
+        formatter: simple
+        stream: ext://sys.stdout
+      file:
+        class: logging.FileHandler
+        level: DEBUG
+        formatter: simple
+        filename: main.log
+
+run:
+  seed: 42
+  train:
+    problem: qis
+    difficulty: medium
+  test:
+    problem: qis
+    difficulty: medium
+  device: cuda
+
+
+model:
+  model: 'UniEGNN'
+  nlayer: 6
+  nout: 1
+  nhid: 64
+  nfeat: 16
+  nedge: 1
+  drop_rate: 0.0
+  atten_drop_rate: 0.0
+  atten_neg_slope: 0.2
+  input_drop: 0.0
+  first_aggregate: 'sum'
+  second_aggregate: 'mean'
+  bias: true
+  fix_edge: false
+  activation: 'leakyrelu'

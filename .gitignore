@@ -1,0 +1,27 @@
+# Distribution / packaging
+__pycache__/
+build/
+eggs/
+.eggs/
+*.egg-info/
+*.egg
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environments
+.env
+.venv
+
+# JetBrains IDEs
+.idea/
+
+# VSCode
+.vscode/
+
+# Project files
+.DS_Store
+data/
+runs/*
+wandb/
+models/

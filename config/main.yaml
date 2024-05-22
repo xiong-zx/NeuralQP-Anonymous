@@ -1,0 +1,66 @@
+# NP.yaml
+# Test Neural Prediction
+defaults:
+  - _self_
+
+hydra:
+  job:
+    chdir: true
+  run:
+    dir: ../runs/main/${run.test.problem}-${run.test.difficulty}/lns/${now:%Y-%m-%d}-${now:%H-%M-%S}
+  job_logging:
+    root:
+      handlers: [console, file]
+    handlers:
+      console:
+        class: logging.StreamHandler
+        level: INFO
+        formatter: simple
+        stream: ext://sys.stdout
+      file:
+        class: logging.FileHandler
+        level: DEBUG
+        formatter: simple
+        filename: main.log
+
+run:
+  seed: 42
+  encoding: 'HG'
+  n_instances: 10
+  train:
+    problem: qis
+    difficulty: medium
+  test:
+    problem: qis
+    difficulty:  medium
+  device: cuda
+
+lns:
+  solver: gurobi
+  n_times: 2
+  n_processes: 4
+  block_size: 0.3
+  obj_limit: null
+  time_limit: 10
+  policies:
+    crossover: false
+    neighborhood_policy: "random"
+    repair_policy: "cautious"
+
+
+model:
+  model: 'UniEGNN'
+  nlayer: 6
+  nout: 1
+  nhid: 64
+  nfeat: 16
+  nedge: 1
+  drop_rate: 0.1
+  atten_drop_rate: 0.0
+  atten_neg_slope: 0.0
+  input_drop: 0.0
+  first_aggregate: 'sum'
+  second_aggregate: 'mean'
+  bias: true
+  fix_edge: false
+  activation: 'leakyrelu'
