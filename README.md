@@ -62,7 +62,7 @@ If other dependencies are missing, please install them using `pip`.
 
 ### 4. Download the Dataset
 
-Download the [dataset](https://drive.google.com/file/d/1rdhoOrzsEp2XQULx9bR_Txo3zFzLWPkn/view?usp=drive_link) and place it in the root directory of the project.
+Download the [dataset](https://drive.google.com/file/d/1TOWGkHXJDkFr0vZnsUlpAQ4D3hg9rJq2/view?usp=sharing) and place it in the root directory of the project.
 
 ```bash
 tar -xzvf data.tar.gz
@@ -71,6 +71,8 @@ rm data.tar.gz
 ```
 
 ## Running the Code
+
+Please first change the current directory to `core/`.
 
 ```bash
 cd core
@@ -211,6 +213,12 @@ You need to modify the arguments in `config/NP.yaml`. Here's a brief explanation
     - `difficulty`: Sets the scale of the problem for testing. Options include `tiny`, `easy`, `medium`, `5000`, `10000`.
   - `device`: Specifies the device to be used for training and testing.
 
+To analyze the results, you can run
+
+```bash
+python analyzeNP.py
+```
+
 #### 4.2 Test Parallel Neighborhood Optimization
 
 ```bash
@@ -237,3 +245,9 @@ You need to modify the arguments in `config/LNS.yaml`. Here's a brief explanatio
     - `crossover`: Whether to use crossover in LNS. Options are `True` or `False`.
     - `neighborhood_policy`: Policy for selecting neighborhoods. Options are `random` or `constr_random`.
     - `repair_policy`: Policy for repairing solutions. Options are `quick` or `cautious`.
+
+To analyze the results, you can run
+
+```bash
+python analyzeLNS.py
+```
